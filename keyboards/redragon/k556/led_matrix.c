@@ -6,7 +6,7 @@
 
 /*
     COLS key / led
-    PWM PWM08A - PWM21A
+    PWM PWM00A - PWM21A (PWM15A unused)
     2ty transistors PNP driven high
     base      - GPIO
     collector - LED Col pins
@@ -22,9 +22,9 @@
         LED
 
     ROWS RGB
-    PWM PWM08B - PWM23B
+    PWM PWM22A - PWM21B (PWM10B unused)
     C 0-15
-    j3y transistors NPM driven low
+    j3y transistors NPN driven low
     base      - GPIO
     collector - LED RGB row pins
     emitter   - GND
@@ -34,7 +34,7 @@
          |
          |
       _______
-     |  NPM  |
+     |  NPN  |
      |       |
     (B)     (E)
     GPIO    GND

@@ -58,13 +58,13 @@ static void init_pins(void) {
 
     //  Unselect ROWs
     for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
-        setPinOutput(row_pins[x]);
+        setPinInput(row_pins[x]);
         writePinHigh(row_pins[x]);
     }
 
     // Unselect COLs
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-        setPinInput(col_pins[x]);
+        setPinOutput(col_pins[x]);
         writePinHigh(col_pins[x]);
     }
 }
@@ -87,11 +87,15 @@ void matrix_init(void) {
     SN_SYS1->AHBCLKEN_b.CT16B1CLKEN = 1;
 
     // PFPA - Set PWM to port B pins
-    SN_PFPA->CT16B1 = 0xFFFF00;         // 8-9, 11-23 = top half 16 bits
+    SN_PFPA->CT16B1 = 0x1FFB0F;         // 8-9, 11-23 = top half 16 bits
 
     // Enable PWM function, IOs and select the PWM modes
-    // Enable PWM8-PWM9, PWM11-PWM23 function
-    SN_CT16B1->PWMENB   =   (mskCT16_PWM8EN_EN  \
+    // Enable PWM0-PWM3, PWM8-PWM20 function (except PWM10)
+    SN_CT16B1->PWMENB   =   (mskCT16_PWM0EN_EN  \
+                            |mskCT16_PWM1EN_EN  \
+                            |mskCT16_PWM2EN_EN  \
+                            |mskCT16_PWM3EN_EN  \
+                            |mskCT16_PWM8EN_EN  \
                             |mskCT16_PWM9EN_EN  \
                             |mskCT16_PWM11EN_EN \
                             |mskCT16_PWM12EN_EN \
@@ -102,44 +106,44 @@ void matrix_init(void) {
                             |mskCT16_PWM17EN_EN \
                             |mskCT16_PWM18EN_EN \
                             |mskCT16_PWM19EN_EN \
-                            |mskCT16_PWM20EN_EN \
-                            |mskCT16_PWM21EN_EN \
-                            |mskCT16_PWM22EN_EN \
-                            |mskCT16_PWM23EN_EN);
+                            |mskCT16_PWM20EN_EN);
 
-    // Enable PWM8-PWM9 PWM12-PWM23 IO
-    SN_CT16B1->PWMIOENB =   (mskCT16_PWM8IOEN_EN  \
-                            |mskCT16_PWM9IOEN_EN  \
-                            |mskCT16_PWM11IOEN_EN \
-                            |mskCT16_PWM12IOEN_EN \
-                            |mskCT16_PWM13IOEN_EN \
-                            |mskCT16_PWM14IOEN_EN \
-                            |mskCT16_PWM15IOEN_EN \
-                            |mskCT16_PWM16IOEN_EN \
-                            |mskCT16_PWM17IOEN_EN \
-                            |mskCT16_PWM18IOEN_EN \
-                            |mskCT16_PWM19IOEN_EN \
-                            |mskCT16_PWM20IOEN_EN \
-                            |mskCT16_PWM21IOEN_EN \
-                            |mskCT16_PWM22IOEN_EN \
-                            |mskCT16_PWM23IOEN_EN);
+    // Enable PWM0-PWM3, PWM8-PWM20 IO (except PWM10)
+    SN_CT16B1->PWMIOENB =   (mskCT16_PWM0EN_EN  \
+                            |mskCT16_PWM1EN_EN  \
+                            |mskCT16_PWM2EN_EN  \
+                            |mskCT16_PWM3EN_EN  \
+                            |mskCT16_PWM8EN_EN  \
+                            |mskCT16_PWM9EN_EN  \
+                            |mskCT16_PWM11EN_EN \
+                            |mskCT16_PWM12EN_EN \
+                            |mskCT16_PWM13EN_EN \
+                            |mskCT16_PWM14EN_EN \
+                            |mskCT16_PWM15EN_EN \
+                            |mskCT16_PWM16EN_EN \
+                            |mskCT16_PWM17EN_EN \
+                            |mskCT16_PWM18EN_EN \
+                            |mskCT16_PWM19EN_EN \
+                            |mskCT16_PWM20EN_EN);
 
-    // Select as PWM mode 2
-    SN_CT16B1->PWMCTRL =    (mskCT16_PWM8MODE_2  \
-                            |mskCT16_PWM9MODE_2  \
-                            |mskCT16_PWM11MODE_2 \
-                            |mskCT16_PWM12MODE_2 \
-                            |mskCT16_PWM13MODE_2 \
-                            |mskCT16_PWM14MODE_2 \
-                            |mskCT16_PWM15MODE_2);
-    SN_CT16B1->PWMCTRL2 =   (mskCT16_PWM16MODE_2 \
-                            |mskCT16_PWM17MODE_2 \
-                            |mskCT16_PWM18MODE_2 \
-                            |mskCT16_PWM19MODE_2 \
-                            |mskCT16_PWM20MODE_2 \
-                            |mskCT16_PWM21MODE_2 \
-                            |mskCT16_PWM22MODE_2 \
-                            |mskCT16_PWM23MODE_2);
+    // Select as PWM mode 2 PWM0-PWM3 PWM8-PWM20 (except PWM10)
+    SN_CT16B1->PWMCTRL =    (mskCT16_PWM0EN_EN  \
+                            |mskCT16_PWM1EN_EN  \
+                            |mskCT16_PWM2EN_EN  \
+                            |mskCT16_PWM3EN_EN  \
+                            |mskCT16_PWM8EN_EN  \
+                            |mskCT16_PWM9EN_EN  \
+                            |mskCT16_PWM11EN_EN \
+                            |mskCT16_PWM12EN_EN \
+                            |mskCT16_PWM13EN_EN \
+                            |mskCT16_PWM14EN_EN \
+                            |mskCT16_PWM15EN_EN);
+
+    SN_CT16B1->PWMCTRL2 =   (mskCT16_PWM16EN_EN \
+                            |mskCT16_PWM17EN_EN \
+                            |mskCT16_PWM18EN_EN \
+                            |mskCT16_PWM19EN_EN \
+                            |mskCT16_PWM20EN_EN);
 
     // Set match interrupts and TC rest
     SN_CT16B1->MCTRL = (mskCT16_MR1IE_EN);
@@ -194,16 +198,16 @@ OSAL_IRQ_HANDLER(Vector80) {
     SN_CT16B1->IC = mskCT16_MR1IC; // Clear match interrupt status
 
     // Turn COL off
-    setPinInput(col_pins[current_col]);
-    writePinHigh(col_pins[current_col]);
+    //setPinInput(col_pins[current_col]);
+    writePinLow(col_pins[current_col]);
 
     // Read the key matrix
     for (uint8_t row_index = 0; row_index < MATRIX_ROWS; row_index++) {
-        // setPinOutput(row_pins[row_index]);
-        writePinLow(row_pins[row_index]);
+        setPinInput(row_pins[row_index]);
+//        writePinLow(col_pins[current_col]);
 
         // Check row pin state
-        if (readPin(col_pins[current_col]) == 0) {
+        if (readPin(row_pins[row_index]) == 0) {
             // Pin LO, set col bit
             raw_matrix[row_index] |= (MATRIX_ROW_SHIFTER << current_col);
         } else {
@@ -211,34 +215,38 @@ OSAL_IRQ_HANDLER(Vector80) {
             raw_matrix[row_index] &= ~(MATRIX_ROW_SHIFTER << current_col);
         }
         // setPinInput(row_pins[row_index]);
-        writePinHigh(row_pins[row_index]);
+//        writePinHigh(row_pins[row_index]);
     }
 
     current_col = (current_col + 1) % MATRIX_COLS;
 
     // Turn COL ON
-    setPinOutput(col_pins[current_col]);
-    writePinLow(col_pins[current_col]);
+//    setPinOutput(col_pins[current_col]);
+    writePinHigh(col_pins[current_col]);
 
-    SN_CT16B1->MR23 = led_state[(current_col) + 0].r;
-    SN_CT16B1->MR8  = led_state[(current_col) + 0].b;
-    SN_CT16B1->MR9  = led_state[(current_col) + 0].g;
+//    SN_CT16B1->MR8  = led_state[(current_col) + 0].r;
+//    SN_CT16B1->MR9  = led_state[(current_col) + 0].b;
+//    SN_CT16B1->MR11 = led_state[(current_col) + 0].g;
 
-    SN_CT16B1->MR11 = led_state[(current_col) + 1].r;
-    SN_CT16B1->MR12 = led_state[(current_col) + 1].b;
-    SN_CT16B1->MR13 = led_state[(current_col) + 1].g;
+//    SN_CT16B1->MR12 = led_state[(current_col) + 1].r;
+//    SN_CT16B1->MR13 = led_state[(current_col) + 1].b;
+//    SN_CT16B1->MR14 = led_state[(current_col) + 1].g;
 
-    SN_CT16B1->MR14 = led_state[(current_col) + 2].r;
-    SN_CT16B1->MR15 = led_state[(current_col) + 2].b;
-    SN_CT16B1->MR16 = led_state[(current_col) + 2].g;
+//    SN_CT16B1->MR15 = led_state[(current_col) + 2].r;
+//    SN_CT16B1->MR16 = led_state[(current_col) + 2].b;
+//    SN_CT16B1->MR17 = led_state[(current_col) + 2].g;
 
-    SN_CT16B1->MR17 = led_state[(current_col) + 3].r;
-    SN_CT16B1->MR18 = led_state[(current_col) + 3].b;
-    SN_CT16B1->MR19 = led_state[(current_col) + 3].g;
+//    SN_CT16B1->MR18 = led_state[(current_col) + 3].r;
+//    SN_CT16B1->MR19 = led_state[(current_col) + 3].b;
+//    SN_CT16B1->MR20 = led_state[(current_col) + 3].g;
 
-    SN_CT16B1->MR20 = led_state[(current_col) + 4].r;
-    SN_CT16B1->MR21 = led_state[(current_col) + 4].b;
-    SN_CT16B1->MR22 = led_state[(current_col) + 4].g;
+//    SN_CT16A1->MR21 = led_state[(current_col) + 4].r;
+//    SN_CT16A1->MR22 = led_state[(current_col) + 4].b;
+//    SN_CT16B1->MR0  = led_state[(current_col) + 4].g;
+
+//    SN_CT16B1->MR1  = led_state[(current_col) + 5].r;
+//    SN_CT16B1->MR2  = led_state[(current_col) + 5].g;
+//    SN_CT16B1->MR3  = led_state[(current_col) + 5].b;
 
     SN_CT16B1->IC = SN_CT16B1->RIS;  // Clear all for now
 
