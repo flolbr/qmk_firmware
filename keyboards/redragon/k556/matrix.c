@@ -197,15 +197,10 @@ OSAL_IRQ_HANDLER(Vector80) {
 
     SN_CT16B1->IC = mskCT16_MR1IC; // Clear match interrupt status
 
-    // Turn COL off
-    //setPinInput(col_pins[current_col]);
     writePinLow(col_pins[current_col]);
 
     // Read the key matrix
     for (uint8_t row_index = 0; row_index < MATRIX_ROWS; row_index++) {
-        setPinInput(row_pins[row_index]);
-//        writePinLow(col_pins[current_col]);
-
         // Check row pin state
         if (readPin(row_pins[row_index]) == 0) {
             // Pin LO, set col bit
@@ -214,16 +209,14 @@ OSAL_IRQ_HANDLER(Vector80) {
             // Pin HI, clear col bit
             raw_matrix[row_index] &= ~(MATRIX_ROW_SHIFTER << current_col);
         }
-        // setPinInput(row_pins[row_index]);
-//        writePinHigh(row_pins[row_index]);
     }
 
-    current_col = (current_col + 1) % MATRIX_COLS;
+
 
     // Turn COL ON
 //    setPinOutput(col_pins[current_col]);
     writePinHigh(col_pins[current_col]);
-
+    current_col = (current_col + 1) % MATRIX_COLS;
 //    SN_CT16B1->MR8  = led_state[(current_col) + 0].r;
 //    SN_CT16B1->MR9  = led_state[(current_col) + 0].b;
 //    SN_CT16B1->MR11 = led_state[(current_col) + 0].g;
