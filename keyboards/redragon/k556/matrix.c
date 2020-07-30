@@ -197,8 +197,6 @@ OSAL_IRQ_HANDLER(Vector80) {
 
     SN_CT16B1->IC = mskCT16_MR1IC; // Clear match interrupt status
 
-    writePinLow(col_pins[current_col]);
-
     // Read the key matrix
     for (uint8_t row_index = 0; row_index < MATRIX_ROWS; row_index++) {
         // Check row pin state
@@ -217,21 +215,23 @@ OSAL_IRQ_HANDLER(Vector80) {
 //    setPinOutput(col_pins[current_col]);
     writePinHigh(col_pins[current_col]);
     current_col = (current_col + 1) % MATRIX_COLS;
-//    SN_CT16B1->MR8  = led_state[(current_col) + 0].r;
-//    SN_CT16B1->MR9  = led_state[(current_col) + 0].b;
-//    SN_CT16B1->MR11 = led_state[(current_col) + 0].g;
+    writePinLow(col_pins[current_col]);
 
-//    SN_CT16B1->MR12 = led_state[(current_col) + 1].r;
-//    SN_CT16B1->MR13 = led_state[(current_col) + 1].b;
-//    SN_CT16B1->MR14 = led_state[(current_col) + 1].g;
+    SN_CT16B1->MR8  = led_state[(current_col) + 0].r;
+    SN_CT16B1->MR9  = led_state[(current_col) + 0].b;
+    SN_CT16B1->MR11 = led_state[(current_col) + 0].g;
 
-//    SN_CT16B1->MR15 = led_state[(current_col) + 2].r;
-//    SN_CT16B1->MR16 = led_state[(current_col) + 2].b;
-//    SN_CT16B1->MR17 = led_state[(current_col) + 2].g;
+    SN_CT16B1->MR12 = led_state[(current_col) + 1].r;
+    SN_CT16B1->MR13 = led_state[(current_col) + 1].b;
+    SN_CT16B1->MR14 = led_state[(current_col) + 1].g;
 
-//    SN_CT16B1->MR18 = led_state[(current_col) + 3].r;
-//    SN_CT16B1->MR19 = led_state[(current_col) + 3].b;
-//    SN_CT16B1->MR20 = led_state[(current_col) + 3].g;
+    SN_CT16B1->MR15 = led_state[(current_col) + 2].r;
+    SN_CT16B1->MR16 = led_state[(current_col) + 2].b;
+    SN_CT16B1->MR17 = led_state[(current_col) + 2].g;
+
+    SN_CT16B1->MR18 = led_state[(current_col) + 3].r;
+    SN_CT16B1->MR19 = led_state[(current_col) + 3].b;
+    SN_CT16B1->MR20 = led_state[(current_col) + 3].g;
 
 //    SN_CT16A1->MR21 = led_state[(current_col) + 4].r;
 //    SN_CT16A1->MR22 = led_state[(current_col) + 4].b;
