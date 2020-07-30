@@ -235,27 +235,82 @@ OSAL_IRQ_HANDLER(Vector80) {
     current_row = (current_row + 1) % LED_MATRIX_ROWS;
     writePinHigh(led_row_pins[current_row]);
 
-    SN_CT16B1->MR0  = 255;//led_state[(0 * MATRIX_COLS) + current_col].r;
-    SN_CT16B1->MR1  = 255;//led_state[(0 * MATRIX_COLS) + current_col].b;
-    SN_CT16B1->MR2  = 255;//led_state[(0 * MATRIX_COLS) + current_col].g;
-    SN_CT16B1->MR3  = 255;//led_state[(0 * MATRIX_COLS) + current_col].r;
-    SN_CT16B1->MR4  = 255;//led_state[(0 * MATRIX_COLS) + current_col].b;
-    SN_CT16B1->MR5  = 255;//led_state[(0 * MATRIX_COLS) + current_col].g;
-    SN_CT16B1->MR6  = 255;//led_state[(0 * MATRIX_COLS) + current_col].r;
-    SN_CT16B1->MR7  = 255;//led_state[(0 * MATRIX_COLS) + current_col].b;
-    SN_CT16B1->MR8  = 255;//led_state[(0 * MATRIX_COLS) + current_col].g;
-    SN_CT16B1->MR9  = 255;//led_state[(0 * MATRIX_COLS) + current_col].r;
-    SN_CT16B1->MR10 = 255;//led_state[(0 * MATRIX_COLS) + current_col].b;
-    SN_CT16B1->MR11 = 255;//led_state[(0 * MATRIX_COLS) + current_col].g;
-    SN_CT16B1->MR12 = 255;//led_state[(0 * MATRIX_COLS) + current_col].r;
-    SN_CT16B1->MR13 = 255;//led_state[(0 * MATRIX_COLS) + current_col].b;
-    SN_CT16B1->MR14 = 255;//led_state[(0 * MATRIX_COLS) + current_col].g;
-    SN_CT16B1->MR16 = 255;//led_state[(0 * MATRIX_COLS) + current_col].r;
-    SN_CT16B1->MR17 = 255;//led_state[(0 * MATRIX_COLS) + current_col].b;
-    SN_CT16B1->MR18 = 255;//led_state[(0 * MATRIX_COLS) + current_col].g;
-    SN_CT16B1->MR19 = 255;
-    SN_CT16B1->MR20 = 255;
-    SN_CT16B1->MR21 = 255;
+    uint8_t row_idx = current_row / 3;
+
+    if(current_row % 3 == 0)
+    {
+        SN_CT16B1->MR0  = led_state[(row_idx * MATRIX_COLS) + 0 ].g;
+        SN_CT16B1->MR1  = led_state[(row_idx * MATRIX_COLS) + 1 ].g;
+        SN_CT16B1->MR2  = led_state[(row_idx * MATRIX_COLS) + 2 ].g;
+        SN_CT16B1->MR3  = led_state[(row_idx * MATRIX_COLS) + 3 ].g;
+        SN_CT16B1->MR4  = led_state[(row_idx * MATRIX_COLS) + 4 ].g;
+        SN_CT16B1->MR5  = led_state[(row_idx * MATRIX_COLS) + 5 ].g;
+        SN_CT16B1->MR6  = led_state[(row_idx * MATRIX_COLS) + 6 ].g;
+        SN_CT16B1->MR7  = led_state[(row_idx * MATRIX_COLS) + 7 ].g;
+        SN_CT16B1->MR8  = led_state[(row_idx * MATRIX_COLS) + 8 ].g;
+        SN_CT16B1->MR9  = led_state[(row_idx * MATRIX_COLS) + 9 ].g;
+        SN_CT16B1->MR10 = led_state[(row_idx * MATRIX_COLS) + 10].g;
+        SN_CT16B1->MR11 = led_state[(row_idx * MATRIX_COLS) + 11].g;
+        SN_CT16B1->MR12 = led_state[(row_idx * MATRIX_COLS) + 12].g;
+        SN_CT16B1->MR13 = led_state[(row_idx * MATRIX_COLS) + 13].g;
+        SN_CT16B1->MR14 = led_state[(row_idx * MATRIX_COLS) + 14].g;
+        SN_CT16B1->MR16 = led_state[(row_idx * MATRIX_COLS) + 15].g;
+        SN_CT16B1->MR17 = led_state[(row_idx * MATRIX_COLS) + 16].g;
+        SN_CT16B1->MR18 = led_state[(row_idx * MATRIX_COLS) + 17].g;
+        SN_CT16B1->MR19 = led_state[(row_idx * MATRIX_COLS) + 18].g;
+        SN_CT16B1->MR20 = led_state[(row_idx * MATRIX_COLS) + 19].g;
+        SN_CT16B1->MR21 = led_state[(row_idx * MATRIX_COLS) + 20].g;
+    }
+
+    if(current_row % 3 == 1)
+    {
+        SN_CT16B1->MR0  = led_state[(row_idx * MATRIX_COLS) + 0 ].r;
+        SN_CT16B1->MR1  = led_state[(row_idx * MATRIX_COLS) + 1 ].r;
+        SN_CT16B1->MR2  = led_state[(row_idx * MATRIX_COLS) + 2 ].r;
+        SN_CT16B1->MR3  = led_state[(row_idx * MATRIX_COLS) + 3 ].r;
+        SN_CT16B1->MR4  = led_state[(row_idx * MATRIX_COLS) + 4 ].r;
+        SN_CT16B1->MR5  = led_state[(row_idx * MATRIX_COLS) + 5 ].r;
+        SN_CT16B1->MR6  = led_state[(row_idx * MATRIX_COLS) + 6 ].r;
+        SN_CT16B1->MR7  = led_state[(row_idx * MATRIX_COLS) + 7 ].r;
+        SN_CT16B1->MR8  = led_state[(row_idx * MATRIX_COLS) + 8 ].r;
+        SN_CT16B1->MR9  = led_state[(row_idx * MATRIX_COLS) + 9 ].r;
+        SN_CT16B1->MR10 = led_state[(row_idx * MATRIX_COLS) + 10].r;
+        SN_CT16B1->MR11 = led_state[(row_idx * MATRIX_COLS) + 11].r;
+        SN_CT16B1->MR12 = led_state[(row_idx * MATRIX_COLS) + 12].r;
+        SN_CT16B1->MR13 = led_state[(row_idx * MATRIX_COLS) + 13].r;
+        SN_CT16B1->MR14 = led_state[(row_idx * MATRIX_COLS) + 14].r;
+        SN_CT16B1->MR16 = led_state[(row_idx * MATRIX_COLS) + 15].r;
+        SN_CT16B1->MR17 = led_state[(row_idx * MATRIX_COLS) + 16].r;
+        SN_CT16B1->MR18 = led_state[(row_idx * MATRIX_COLS) + 17].r;
+        SN_CT16B1->MR19 = led_state[(row_idx * MATRIX_COLS) + 18].r;
+        SN_CT16B1->MR20 = led_state[(row_idx * MATRIX_COLS) + 19].r;
+        SN_CT16B1->MR21 = led_state[(row_idx * MATRIX_COLS) + 20].r;
+    }
+
+    if(current_row % 3 == 2)
+    {
+        SN_CT16B1->MR0  = led_state[(row_idx * MATRIX_COLS) + 0 ].b;
+        SN_CT16B1->MR1  = led_state[(row_idx * MATRIX_COLS) + 1 ].b;
+        SN_CT16B1->MR2  = led_state[(row_idx * MATRIX_COLS) + 2 ].b;
+        SN_CT16B1->MR3  = led_state[(row_idx * MATRIX_COLS) + 3 ].b;
+        SN_CT16B1->MR4  = led_state[(row_idx * MATRIX_COLS) + 4 ].b;
+        SN_CT16B1->MR5  = led_state[(row_idx * MATRIX_COLS) + 5 ].b;
+        SN_CT16B1->MR6  = led_state[(row_idx * MATRIX_COLS) + 6 ].b;
+        SN_CT16B1->MR7  = led_state[(row_idx * MATRIX_COLS) + 7 ].b;
+        SN_CT16B1->MR8  = led_state[(row_idx * MATRIX_COLS) + 8 ].b;
+        SN_CT16B1->MR9  = led_state[(row_idx * MATRIX_COLS) + 9 ].b;
+        SN_CT16B1->MR10 = led_state[(row_idx * MATRIX_COLS) + 10].b;
+        SN_CT16B1->MR11 = led_state[(row_idx * MATRIX_COLS) + 11].b;
+        SN_CT16B1->MR12 = led_state[(row_idx * MATRIX_COLS) + 12].b;
+        SN_CT16B1->MR13 = led_state[(row_idx * MATRIX_COLS) + 13].b;
+        SN_CT16B1->MR14 = led_state[(row_idx * MATRIX_COLS) + 14].b;
+        SN_CT16B1->MR16 = led_state[(row_idx * MATRIX_COLS) + 15].b;
+        SN_CT16B1->MR17 = led_state[(row_idx * MATRIX_COLS) + 16].b;
+        SN_CT16B1->MR18 = led_state[(row_idx * MATRIX_COLS) + 17].b;
+        SN_CT16B1->MR19 = led_state[(row_idx * MATRIX_COLS) + 18].b;
+        SN_CT16B1->MR20 = led_state[(row_idx * MATRIX_COLS) + 19].b;
+        SN_CT16B1->MR21 = led_state[(row_idx * MATRIX_COLS) + 20].b;
+    }
 
     SN_CT16B1->IC = SN_CT16B1->RIS;  // Clear all for now
 
