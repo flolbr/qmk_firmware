@@ -61,7 +61,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length)
             orgb_get_zones_count();
             break;
         case ORGB_GET_ZONE_NAME:
-            orgb_get_zone_name(data);
+            //orgb_get_zone_name(data);
             break;
         case ORGB_GET_ZONE_TYPE:
             orgb_get_zone_type(data);

@@ -24,6 +24,7 @@ Ported to QMK by Stephen Peery <https://github.com/smp4488/>
 #include "hal.h"
 #include "CT16.h"
 
+#include "config.h"
 #include "wait.h"
 #include "util.h"
 #include "matrix.h"

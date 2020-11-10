@@ -22,13 +22,16 @@
 #define VENDOR_ID       0x0C45
 #define PRODUCT_ID      0x5004
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    Redragon
-#define PRODUCT         K556
+#define MANUFACTURER    "Redragon"
+#define PRODUCT         "K556"
 #define DESCRIPTION     K556 Devarajas
 
 /* key matrix size */
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 21
+
+#define ZONES_COUNT 1
+#define LED_MATRIX_COLUMNS 7
 
 /*
  * Keyboard Matrix Assignments
