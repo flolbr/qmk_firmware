@@ -20,6 +20,11 @@ SERIAL_SRC += $(wildcard $(SERIAL_PATH)/system/*.c)
 SERIAL_DEFS += -DSERIAL_LINK_ENABLE
 COMMON_VPATH += $(SERIAL_PATH)
 
+QUANTUM_SRC += \
+    $(QUANTUM_DIR)/quantum.c \
+    $(QUANTUM_DIR)/keymap_common.c \
+    $(QUANTUM_DIR)/keycode_config.c
+
 ifeq ($(strip $(API_SYSEX_ENABLE)), yes)
     OPT_DEFS += -DAPI_SYSEX_ENABLE
     SRC += $(QUANTUM_DIR)/api/api_sysex.c
@@ -140,12 +145,20 @@ else
         SRC += $(PLATFORM_COMMON_DIR)/eeprom_stm32.c
         SRC += $(PLATFORM_COMMON_DIR)/flash_stm32.c
         OPT_DEFS += -DEEPROM_EMU_STM32F072xB
+<<<<<<< HEAD
         OPT_DEFS += -
 	#   else ifeq ($(MCU_SERIES)_$(MCU_LDSCRIPT), SN32F240_SN32F240B)
 	# 	SRC += $(PLATFORM_COMMON_DIR)/eeprom_sn32.c
     #     SRC += $(PLATFORM_COMMON_DIR)/flash_sn32.c
 	# 	OPT_DEFS += -DEEPROM_EMU_SN32F240B
 	# 	OPT_DEFS += -DSN32_EEPROM_ENABLE
+=======
+        OPT_DEFS += -DSTM32_EEPROM_ENABLE
+      else ifneq ($(filter $(MCU_SERIES),STM32L0xx STM32L1xx),)
+        OPT_DEFS += -DEEPROM_DRIVER
+        COMMON_VPATH += $(DRIVER_PATH)/eeprom
+        SRC += eeprom_driver.c eeprom_stm32_L0_L1.c
+>>>>>>> d8a3d26cb... Implement OpenRGB protocol
       else
         # This will effectively work the same as "transient" if not supported by the chip
         SRC += $(PLATFORM_COMMON_DIR)/eeprom_teensy.c
@@ -413,6 +426,12 @@ ifeq ($(strip $(VIA_ENABLE)), yes)
     BOOTMAGIC_ENABLE := lite
     SRC += $(QUANTUM_DIR)/via.c
     OPT_DEFS += -DVIA_ENABLE
+endif
+
+ifeq ($(strip $(ORGB_ENABLE)), yes)
+    RAW_ENABLE := yes
+    SRC += $(QUANTUM_DIR)/orgb.c
+    OPT_DEFS += -DORGB_ENABLE
 endif
 
 ifeq ($(strip $(DYNAMIC_KEYMAP_ENABLE)), yes)

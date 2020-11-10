@@ -398,6 +398,7 @@
       "string_view": "c",
       "vector": "c",
       "ostream": "c",
-      "*.tcc": "c"
+      "*.tcc": "c",
+      "ranges": "c"
     }
 }
