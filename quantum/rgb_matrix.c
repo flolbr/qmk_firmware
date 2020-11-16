@@ -111,6 +111,17 @@ const point_t k_rgb_matrix_center = RGB_MATRIX_CENTER;
 #    define RGB_MATRIX_STARTUP_SPD UINT8_MAX / 2
 #endif
 
+// globals
+rgb_config_t rgb_matrix_config;  // TODO: would like to prefix this with g_ for global consistancy, do this in another pr
+RGB          g_rgb_matrix_hid_direct_mode_colors[DRIVER_LED_TOTAL] = {[0 ... DRIVER_LED_TOTAL - 1] = {0, 255, 0}};
+
+uint32_t     g_rgb_timer;
+#ifdef RGB_MATRIX_FRAMEBUFFER_EFFECTS
+uint8_t g_rgb_frame_buffer[MATRIX_ROWS][MATRIX_COLS] = {{0}};
+#endif  // RGB_MATRIX_FRAMEBUFFER_EFFECTS
+#ifdef RGB_MATRIX_KEYREACTIVE_ENABLED
+last_hit_t g_last_hit_tracker;
+#endif  // RGB_MATRIX_KEYREACTIVE_ENABLED
 
 bool g_suspend_state = false;
 

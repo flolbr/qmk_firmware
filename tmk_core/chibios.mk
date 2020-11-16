@@ -38,6 +38,7 @@ endif
 include $(STARTUP_MK)
 # HAL-OSAL files (optional).
 include $(CHIBIOS)/os/hal/hal.mk
+include $(CHIBIOS_CONTRIB)/os/hal/hal.mk
 
 ifeq ("$(PLATFORM_NAME)","")
 	PLATFORM_NAME = platform
@@ -80,7 +81,8 @@ ifeq ("$(wildcard $(BOARD_MK))","")
 endif
 
 include $(BOARD_MK)
-include $(CHIBIOS)/os/hal/osal/rt/osal.mk
+-include $(CHIBIOS)/os/hal/osal/rt/osal.mk         # ChibiOS <= 19.x
+-include $(CHIBIOS)/os/hal/osal/rt-nil/osal.mk     # ChibiOS >= 20.x
 # RTOS files (optional).
 include $(CHIBIOS)/os/rt/rt.mk
 # Compability with old version
@@ -110,6 +112,8 @@ else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/ld/$(MCU_LDSCRIPT).ld)","")
     LDSCRIPT = $(KEYBOARD_PATH_1)/ld/$(MCU_LDSCRIPT).ld
 else ifneq ("$(wildcard $(TOP_DIR)/drivers/boards/ld/$(MCU_LDSCRIPT).ld)","")
     LDSCRIPT = $(TOP_DIR)/drivers/boards/ld/$(MCU_LDSCRIPT).ld
+else ifneq ("$(wildcard $(STARTUPLD_CONTRIB)/$(MCU_LDSCRIPT).ld)","")
+    LDSCRIPT = $(STARTUPLD_CONTRIB)/$(MCU_LDSCRIPT).ld
 else
     LDSCRIPT = $(STARTUPLD)/$(MCU_LDSCRIPT).ld
 endif
@@ -119,19 +123,21 @@ CHIBISRC = $(STARTUPSRC) \
        $(PORTSRC) \
        $(OSALSRC) \
        $(HALSRC) \
+       $(HALSRC_CONTRIB) \
        $(PLATFORMSRC) \
+       $(PLATFORMSRC_CONTRIB) \
        $(BOARDSRC) \
-       $(STREAMSSRC) \
-	   $(STARTUPASM) \
-	   $(PORTASM) \
-	   $(OSALASM)
+       $(STREAMSSRC)
+
+# Ensure the ASM files are not subjected to LTO -- it'll strip out interrupt handlers otherwise.
+QUANTUM_LIB_SRC += $(STARTUPASM) $(PORTASM) $(OSALASM)
 
 CHIBISRC := $(patsubst $(TOP_DIR)/%,%,$(CHIBISRC))
 
-EXTRAINCDIRS += $(CHIBIOS)/os/license \
+EXTRAINCDIRS += $(CHIBIOS)/os/license $(CHIBIOS)/os/oslib/include \
          $(STARTUPINC) $(KERNINC) $(PORTINC) $(OSALINC) \
-         $(HALINC) $(PLATFORMINC) $(BOARDINC) $(TESTINC) \
-         $(STREAMSINC) $(CHIBIOS)/os/various $(COMMON_VPATH)
+         $(HALINC) $(HALINC_CONTRIB) $(PLATFORMINC) $(PLATFORMINC_CONTRIB) $(BOARDINC) $(TESTINC) \
+         $(STREAMSINC) $(CHIBIOS)/os/various $(CHIBIOS_CONTRIB)/os/various $(COMMON_VPATH)
 
 #
 # Project, sources and paths
@@ -178,6 +184,9 @@ LDSYMBOLS :=$(LDSYMBOLS),--defsym=__main_stack_size__=$(USE_EXCEPTIONS_STACKSIZE
 LDFLAGS += -Wl,--script=$(LDSCRIPT)$(LDSYMBOLS)
 
 OPT_DEFS += -DPROTOCOL_CHIBIOS
+
+# Workaround to stop ChibiOS from complaining about new GCC -- it's been fixed for 7/8/9 already
+OPT_DEFS += -DPORT_IGNORE_GCC_VERSION_CHECK=1
 
 MCUFLAGS = -mcpu=$(MCU)
 
@@ -288,7 +297,6 @@ teensy: $(BUILD_DIR)/$(TARGET).hex cpfirmware sizeafter
 bin: $(BUILD_DIR)/$(TARGET).bin sizeafter
 	$(COPY) $(BUILD_DIR)/$(TARGET).bin $(TARGET).bin;
 
-
 flash: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
 ifeq ($(strip $(BOOTLOADER)),dfu)
 	$(call EXEC_DFU_UTIL)
@@ -296,6 +304,8 @@ else ifeq ($(strip $(MCU_FAMILY)),KINETIS)
 	$(call EXEC_TEENSY)
 else ifeq ($(strip $(MCU_FAMILY)),STM32)
 	$(call EXEC_DFU_UTIL)
+else ifeq ($(strip $(MCU_FAMILY)),SN32)
+	$(call make -f $(TOP_DIR)/dk63.mk all)
 else
 	$(PRINT_OK); $(SILENT) || printf "$(MSG_FLASH_BOOTLOADER)"
 endif
