@@ -41,7 +41,6 @@ enum orgb_command_id {
     ORGB_GET_LED_COLOR,
     ORGB_GET_HSV
 };
-enum orgb_eeprom_commands { ORGB_EEPROM_SAVE, ORGB_EEPROM_DONT_SAVE };
 
 enum zone_types { ZONE_TYPE_SINGLE, ZONE_TYPE_LINEAR, ZONE_TYPE_MATRIX };
 
@@ -51,6 +50,7 @@ typedef struct PACKED {
     uint8_t zone_sizes[ORGB_ZONES_COUNT];
     uint8_t led_matrix_map[ORGB_MATRIX_COLUMNS][ORGB_MATRIX_ROWS];
     char    led_names[DRIVER_LED_TOTAL][64];
+    bool should_save_to_eeprom;
 } orgb_config_t;
 
 extern orgb_config_t g_orgb_config;

@@ -154,15 +154,14 @@ void orgb_set_leds(uint8_t *data) {
 }
 
 void orgb_set_mode(uint8_t *data) {
-    const bool    should_save_to_eeprom = data[1] == ORGB_EEPROM_SAVE;
-    const uint8_t mode                  = data[2];
+    const uint8_t mode                  = data[1];
     if (mode >= RGB_MATRIX_EFFECT_MAX) {
         raw_hid_buffer[1] = ORGB_FAILURE;
         raw_hid_buffer[2] = ORGB_EOM;
         return;
     }
 
-    if (should_save_to_eeprom)
+    if (g_orgb_config.should_save_to_eeprom)
         rgb_matrix_mode(mode);
     else
         rgb_matrix_mode_noeeprom(mode);
@@ -171,9 +170,8 @@ void orgb_set_mode(uint8_t *data) {
     raw_hid_buffer[2] = ORGB_EOM;
 }
 void orgb_set_mode_and_speed(uint8_t *data) {
-    const bool    should_save_to_eeprom = data[1] == ORGB_EEPROM_SAVE;
-    const uint8_t mode                  = data[2];
-    const uint8_t speed                 = data[3];
+    const uint8_t mode                  = data[1];
+    const uint8_t speed                 = data[2];
 
     if (mode > RGB_MATRIX_EFFECT_MAX || speed > 255) {
         raw_hid_buffer[1] = ORGB_FAILURE;
@@ -181,7 +179,7 @@ void orgb_set_mode_and_speed(uint8_t *data) {
         return;
     }
 
-    if (should_save_to_eeprom) {
+    if (g_orgb_config.should_save_to_eeprom) {
         rgb_matrix_mode(mode);
         rgb_matrix_set_speed(speed);
     } else {
@@ -193,12 +191,11 @@ void orgb_set_mode_and_speed(uint8_t *data) {
     raw_hid_buffer[2] = ORGB_EOM;
 }
 void orgb_set_color_mode_and_speed(uint8_t *data) {
-    const bool    should_save_to_eeprom = data[1] == ORGB_EEPROM_SAVE;
-    const uint8_t h                     = data[2];
-    const uint8_t s                     = data[3];
-    const uint8_t v                     = data[4];
-    const uint8_t mode                  = data[5];
-    const uint8_t speed                 = data[6];
+    const uint8_t h                     = data[1];
+    const uint8_t s                     = data[2];
+    const uint8_t v                     = data[3];
+    const uint8_t mode                  = data[4];
+    const uint8_t speed                 = data[5];
 
     if (h > 255 || s > 255 || v > 255 || mode > RGB_MATRIX_EFFECT_MAX || speed > 255) {
         raw_hid_buffer[1] = ORGB_FAILURE;
@@ -206,7 +203,7 @@ void orgb_set_color_mode_and_speed(uint8_t *data) {
         return;
     }
 
-    if (should_save_to_eeprom) {
+    if (g_orgb_config.should_save_to_eeprom) {
         rgb_matrix_sethsv(h, s, v);
         rgb_matrix_mode(mode);
         rgb_matrix_set_speed(speed);

@@ -51,9 +51,16 @@ led_config_t g_led_config = { {
 #ifdef ORGB_ENABLE
 orgb_config_t g_orgb_config =
 {
+    // Zones names
     {"Keyboard"},
+
+    // Zones types
     {ZONE_TYPE_MATRIX},
+
+    // Zones sizes
     {105},
+
+    // LED matrix map
     {
         { 100,  99,  98,  97,  96,  95,  NO_LED,  94,  NO_LED,  93,  92,  91,  90,  89,  88,  87,  86 },
         { 101,   0,   1,   2,   3,   4,   5,   6,   7,   8,   9,  10,  11,  12,  13,  14,  85 },
@@ -63,6 +70,8 @@ orgb_config_t g_orgb_config =
         { NO_LED,   58,  59,  60,  NO_LED,  NO_LED,  NO_LED,  61,  NO_LED,  NO_LED,  NO_LED,  62,  63,  64,  65,  66,  NO_LED },
         { 67,   68,  69,  70,  71,  72,  NO_LED,  73,  NO_LED,  74,  75,  76,  77,  78,  79,  80,  81 }
     },
+
+    // Key names
     {
         "Key: Escape",         // 0
         "Key: 1",              // 1
@@ -170,6 +179,9 @@ orgb_config_t g_orgb_config =
         "Lightbar: 36",        // 103
         "Lightbar: 37",        // 104
     },
+
+    // Should set to eeprom?
+    false
 };
 #endif
 
