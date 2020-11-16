@@ -48,6 +48,7 @@ led_config_t g_led_config = { {
     2, 2, 2, 2, 2, 2, 2, 2
 } };
 
+#ifdef ORGB_ENABLE
 orgb_config_t g_orgb_config =
 {
     {"Keyboard"},
@@ -170,6 +171,7 @@ orgb_config_t g_orgb_config =
         "Lightbar: 37",        // 104
     },
 };
+#endif
 
 #ifdef USB_LED_INDICATOR_ENABLE
 void rgb_matrix_indicators_kb(void)
