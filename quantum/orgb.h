@@ -16,8 +16,7 @@
 
 #pragma once
 
-enum orgb_command_id 
-{ 
+enum orgb_command_id {
     ORGB_EOM,
     ORGB_SUCCESS,
     ORGB_FAILURE,
@@ -42,21 +41,11 @@ enum orgb_command_id
     ORGB_GET_LED_COLOR,
     ORGB_GET_HSV
 };
-enum orgb_eeprom_commands
-{
-    ORGB_EEPROM_SAVE,
-    ORGB_EEPROM_DONT_SAVE
-};
+enum orgb_eeprom_commands { ORGB_EEPROM_SAVE, ORGB_EEPROM_DONT_SAVE };
 
-enum zone_types 
-{
-    ZONE_TYPE_SINGLE, 
-    ZONE_TYPE_LINEAR, 
-    ZONE_TYPE_MATRIX 
-};
+enum zone_types { ZONE_TYPE_SINGLE, ZONE_TYPE_LINEAR, ZONE_TYPE_MATRIX };
 
-typedef struct PACKED 
-{
+typedef struct PACKED {
     char    zone_names[ORGB_ZONES_COUNT][64];
     uint8_t zone_types[ORGB_ZONES_COUNT];
     uint8_t zone_sizes[ORGB_ZONES_COUNT];
@@ -65,7 +54,7 @@ typedef struct PACKED
 } orgb_config_t;
 
 extern orgb_config_t g_orgb_config;
-extern RGB g_orgb_direct_mode_colors[DRIVER_LED_TOTAL];
+extern RGB           g_orgb_direct_mode_colors[DRIVER_LED_TOTAL];
 
 // Controls RGB
 void orgb_set_single_led(uint8_t *data);
