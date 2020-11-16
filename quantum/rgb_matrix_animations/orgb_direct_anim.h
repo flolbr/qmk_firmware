@@ -10,9 +10,9 @@
                 rgb_matrix_set_color
                 (   
                     i,
-                    orgb_direct_mode_colors[i].r,
-                    orgb_direct_mode_colors[i].g,
-                    orgb_direct_mode_colors[i].b
+                    g_orgb_direct_mode_colors[i].r,
+                    g_orgb_direct_mode_colors[i].g,
+                    g_orgb_direct_mode_colors[i].b
                 );
             }
             return led_max < DRIVER_LED_TOTAL;

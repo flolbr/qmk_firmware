@@ -17,7 +17,7 @@
 #ifndef RAW_ENABLE
 #    error "RAW_ENABLE is not enabled"
 #endif
-
+#define RGB_MATRIX_STARTUP_HUE 0
 #include "quantum.h"
 
 #include "orgb.h"
@@ -27,8 +27,22 @@
 #include "string.h"
 #include <color.h>
 
-uint8_t raw_hid_buffer[RAW_EPSIZE];
-RGB orgb_direct_mode_colors[DRIVER_LED_TOTAL] = {[0 ... DRIVER_LED_TOTAL - 1] = {0, 255, 0}};
+static uint8_t raw_hid_buffer[RAW_EPSIZE];
+
+#if !defined(ORGB_DIRECT_MODE_STARTUP_RED)
+#    define ORGB_DIRECT_MODE_STARTUP_RED 255
+#endif
+
+#if !defined(ORGB_DIRECT_MODE_STARTUP_BLUE)
+#    define ORGB_DIRECT_MODE_STARTUP_BLUE 0
+#endif
+
+#if !defined(ORGB_DIRECT_MODE_STARTUP_GREEN)
+#    define ORGB_DIRECT_MODE_STARTUP_GREEN 0
+#endif
+
+RGB g_orgb_direct_mode_colors[DRIVER_LED_TOTAL] = {[0 ... DRIVER_LED_TOTAL - 1] = 
+    {ORGB_DIRECT_MODE_STARTUP_GREEN, ORGB_DIRECT_MODE_STARTUP_RED, ORGB_DIRECT_MODE_STARTUP_BLUE}};
 
 void raw_hid_receive(uint8_t *data, uint8_t length)
 {
@@ -105,9 +119,9 @@ void orgb_set_single_led(uint8_t *data)
         return;
     }
 
-    orgb_direct_mode_colors[led].r = r;
-    orgb_direct_mode_colors[led].g = g;
-    orgb_direct_mode_colors[led].b = b;
+    g_orgb_direct_mode_colors[led].r = r;
+    g_orgb_direct_mode_colors[led].g = g;
+    g_orgb_direct_mode_colors[led].b = b;
     
     raw_hid_buffer[1] = ORGB_SUCCESS;
     raw_hid_buffer[2] = ORGB_EOM;
@@ -138,9 +152,9 @@ void orgb_set_leds(uint8_t *data)
             continue;
         }
 
-        orgb_direct_mode_colors[first_led + i].r = r;
-        orgb_direct_mode_colors[first_led + i].g = g;
-        orgb_direct_mode_colors[first_led + i].b = b;
+        g_orgb_direct_mode_colors[first_led + i].r = r;
+        g_orgb_direct_mode_colors[first_led + i].g = g;
+        g_orgb_direct_mode_colors[first_led + i].b = b;
         i++;
     }
 
@@ -150,7 +164,7 @@ void orgb_set_leds(uint8_t *data)
 
 void orgb_set_mode(uint8_t *data)
 {
-    const bool should_save_to_eeprom = data[1] == RAW_HID_EEPROM_SAVE;
+    const bool should_save_to_eeprom = data[1] == ORGB_EEPROM_SAVE;
     const uint8_t mode = data[2];
     if (mode >= RGB_MATRIX_EFFECT_MAX) 
     {
@@ -167,7 +181,7 @@ void orgb_set_mode(uint8_t *data)
 }
 void orgb_set_mode_and_speed(uint8_t *data)
 {
-    const bool should_save_to_eeprom = data[1] == RAW_HID_EEPROM_SAVE;
+    const bool should_save_to_eeprom = data[1] == ORGB_EEPROM_SAVE;
     const uint8_t mode = data[2];
     const uint8_t speed = data[3];
 
@@ -194,7 +208,7 @@ void orgb_set_mode_and_speed(uint8_t *data)
 }
 void orgb_set_color_mode_and_speed(uint8_t *data)
 {
-    const bool should_save_to_eeprom = data[1] == RAW_HID_EEPROM_SAVE;
+    const bool should_save_to_eeprom = data[1] == ORGB_EEPROM_SAVE;
     const uint8_t h = data[2];
     const uint8_t s = data[3];
     const uint8_t v = data[4];
@@ -254,14 +268,14 @@ void orgb_get_device_name(void)
 }
 void orgb_get_zones_count(void)
 {
-    raw_hid_buffer[1] = ZONES_COUNT;
+    raw_hid_buffer[1] = ORGB_ZONES_COUNT;
     raw_hid_buffer[2] = ORGB_EOM;
 }
 void orgb_get_zone_name(uint8_t *data)
 {  
     const uint8_t zone = data[1];
 
-    if(zone >= ZONES_COUNT)
+    if(zone >= ORGB_ZONES_COUNT)
     {
         raw_hid_buffer[1] = ORGB_FAILURE;
         raw_hid_buffer[2] = ORGB_EOM;
@@ -281,7 +295,7 @@ void orgb_get_zone_type(uint8_t *data)
 {
     const uint8_t zone = data[1];
 
-    if(zone >= ZONES_COUNT)
+    if(zone >= ORGB_ZONES_COUNT)
     {
         raw_hid_buffer[1] = ORGB_FAILURE;
         raw_hid_buffer[2] = ORGB_EOM;
@@ -295,7 +309,7 @@ void orgb_get_zone_size(uint8_t *data)
 {
     const uint8_t zone = data[1];
 
-    if(zone >= ZONES_COUNT)
+    if(zone >= ORGB_ZONES_COUNT)
     {
         raw_hid_buffer[1] = ORGB_FAILURE;
         raw_hid_buffer[2] = ORGB_EOM;
@@ -327,12 +341,12 @@ void orgb_get_led_name(uint8_t *data)
 }
 void orgb_get_led_matrix_columns(void)
 {
-    raw_hid_buffer[1] = LED_MATRIX_COLUMNS;
+    raw_hid_buffer[1] = ORGB_MATRIX_COLUMNS;
     raw_hid_buffer[2] = ORGB_EOM;
 }
 void orgb_get_led_matrix_rows(void)
 {
-    raw_hid_buffer[1] = LED_MATRIX_ROWS;
+    raw_hid_buffer[1] = ORGB_MATRIX_ROWS;
     raw_hid_buffer[2] = ORGB_EOM;
 }
 void orgb_get_led_value_in_matrix(uint8_t *data)
@@ -340,7 +354,7 @@ void orgb_get_led_value_in_matrix(uint8_t *data)
     const uint8_t column = data[1];
     const uint8_t row = data[2];
 
-    if(column >= LED_MATRIX_COLUMNS || row >= LED_MATRIX_ROWS)
+    if(column >= ORGB_MATRIX_COLUMNS || row >= ORGB_MATRIX_ROWS)
     {
         raw_hid_buffer[1] = ORGB_FAILURE;
         raw_hid_buffer[2] = ORGB_EOM;
@@ -361,9 +375,9 @@ void orgb_get_led_color(uint8_t *data)
         return;
     }
 
-    raw_hid_buffer[1] = orgb_direct_mode_colors[led].r;
-    raw_hid_buffer[2] = orgb_direct_mode_colors[led].g;
-    raw_hid_buffer[3] = orgb_direct_mode_colors[led].b;
+    raw_hid_buffer[1] = g_orgb_direct_mode_colors[led].r;
+    raw_hid_buffer[2] = g_orgb_direct_mode_colors[led].g;
+    raw_hid_buffer[3] = g_orgb_direct_mode_colors[led].b;
     raw_hid_buffer[4] = ORGB_EOM;
 }
 void orgb_get_hsv(void)

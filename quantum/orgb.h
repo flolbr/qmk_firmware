@@ -44,8 +44,8 @@ enum orgb_command_id
 };
 enum orgb_eeprom_commands
 {
-    RAW_HID_EEPROM_SAVE,
-    RAW_HID_EEPROM_DONT_SAVE
+    ORGB_EEPROM_SAVE,
+    ORGB_EEPROM_DONT_SAVE
 };
 
 enum zone_types 
@@ -57,16 +57,15 @@ enum zone_types
 
 typedef struct PACKED 
 {
-    char    zone_names[ZONES_COUNT][64];
-    uint8_t zone_types[ZONES_COUNT];
-    uint8_t zone_sizes[ZONES_COUNT];
-    uint8_t led_matrix_map[LED_MATRIX_COLUMNS][LED_MATRIX_ROWS];
+    char    zone_names[ORGB_ZONES_COUNT][64];
+    uint8_t zone_types[ORGB_ZONES_COUNT];
+    uint8_t zone_sizes[ORGB_ZONES_COUNT];
+    uint8_t led_matrix_map[ORGB_MATRIX_COLUMNS][ORGB_MATRIX_ROWS];
     char    led_names[DRIVER_LED_TOTAL][64];
 } orgb_config_t;
 
 extern orgb_config_t g_orgb_config;
-extern uint8_t raw_hid_buffer[RAW_EPSIZE];
-extern RGB orgb_direct_mode_colors[DRIVER_LED_TOTAL];
+extern RGB g_orgb_direct_mode_colors[DRIVER_LED_TOTAL];
 
 // Controls RGB
 void orgb_set_single_led(uint8_t *data);

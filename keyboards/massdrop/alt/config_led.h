@@ -17,13 +17,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+#define ORGB_ZONES_COUNT 1
+#define ORGB_MATRIX_COLUMNS 7
+#define ORGB_MATRIX_ROWS 17
+
 //Define number of ISSI3733 drivers being used (1...16)
 #define ISSI3733_DRIVER_COUNT 2
 #define DRIVER_LED_TOTAL ISSI3733_LED_COUNT
-
-#define ZONES_COUNT 1
-#define LED_MATRIX_COLUMNS 7
-#define LED_MATRIX_ROWS 17
 
 //Hardware address of each driver (Refer to ISSI3733 pdf "Table 1 Slave Address" and keyboard schematic)
 #define ISSI3773_DRIVER_ADDRESSES { 0xA0, 0xBE }
