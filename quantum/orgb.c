@@ -228,10 +228,7 @@ void orgb_get_qmk_version(void) {
     raw_hid_buffer[i + 1] = ORGB_EOM;
 }
 void orgb_get_device_name(void) {
-    char *name = malloc(strlen(MANUFACTURER) + strlen(" ") + strlen(PRODUCT) + 1);
-    strcpy(name, MANUFACTURER);
-    strcat(name, " ");
-    strcat(name, PRODUCT);
+    #define name MANUFACTURER "  " PRODUCT
 
     uint8_t i = 0;
     while (name[i] != 0 && i + 2 < RAW_EPSIZE) {
