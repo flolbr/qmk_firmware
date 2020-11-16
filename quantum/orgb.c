@@ -61,7 +61,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length)
             orgb_get_zones_count();
             break;
         case ORGB_GET_ZONE_NAME:
-            //orgb_get_zone_name(data);
+            orgb_get_zone_name(data);
             break;
         case ORGB_GET_ZONE_TYPE:
             orgb_get_zone_type(data);
@@ -161,7 +161,7 @@ void orgb_set_mode(uint8_t *data)
         return;
     }
 
-    if(should_save_to_eeprom) rgb_matrix_mode(mode);
+    if(should_save_to_eeprom) rgb_matrix_mode_noeeprom(mode);
     else rgb_matrix_mode_noeeprom(mode);
 
     raw_hid_buffer[1] = ORGB_SUCCESS;
@@ -182,7 +182,7 @@ void orgb_set_mode_and_speed(uint8_t *data)
 
     if(should_save_to_eeprom) 
     {
-        rgb_matrix_mode(mode);
+        rgb_matrix_mode_noeeprom(mode);
         //rgb_matrix_set_speed(speed);
     }
     else 
@@ -212,8 +212,8 @@ void orgb_set_color_mode_and_speed(uint8_t *data)
 
     if(should_save_to_eeprom) 
     {
-        rgb_matrix_sethsv(h, s, v);
-        rgb_matrix_mode(mode);
+        rgb_matrix_sethsv_noeeprom(h, s, v);
+        rgb_matrix_mode_noeeprom(mode);
         //rgb_matrix_set_speed(speed);
     }
     else 

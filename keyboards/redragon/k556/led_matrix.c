@@ -79,10 +79,10 @@ void led_set(uint8_t usb_led) {
 const led_matrix_config_t g_led_matrix_config =
 {
     {"Keyboard"},
-    {ZONE_TYPE_MATRIX},
-    {105},
+    {ZONE_TYPE_LINEAR},
+    {16},
     {
-        { 100,  99,  98,  97,  96,  95,  NO_LED,  94,  NO_LED,  93,  92,  91,  90,  89,  88,  87,  86 },
+        { 100,  99,  98,  97,  96,  95,   94,  NO_LED,  93,  92,  91,  90,  89,  88,  87,  86, 85 },
         { 101,   0,   1,   2,   3,   4,   5,   6,   7,   8,   9,  10,  11,  12,  13,  14,  85 },
         { 102,  15,  16,  17,  18,  19,  20,  21,  22,  23,  24,  25,  26,  27,  28,  29,  84 },
         { 103,  30,  31,  32,  33,  34,  35,  36,  37,  38,  39,  40,  41,  NO_LED,  42,  43,  83 },
@@ -91,22 +91,22 @@ const led_matrix_config_t g_led_matrix_config =
         { 67,   68,  69,  70,  71,  72,  NO_LED,  73,  NO_LED,  74,  75,  76,  77,  78,  79,  80,  81 }
     },
     {
-        "Key: Escape",         // 0
-        "Key: 1",              // 1
-        "Key: 2",              // 2
-        "Key: 3",              // 3
-        "Key: 4",              // 4
-        "Key: 5",              // 5
-        "Key: 6",              // 6
-        "Key: 7",              // 7
-        "Key: 8",              // 8
-        "Key: 9",              // 9
-        "Key: 0",              // 10
-        "Key: -",              // 11
-        "Key: =",              // 12
-        "Key: Backspace",      // 13
-        "Key: Delete",         // 14
-        "Key: Tab",            // 15
+        "Key: Escape",
+        "Key: F1",
+        "Key: F2",
+        "Key: F3",
+        "Key: F4",
+        "Key: F5",
+        "Key: F6",
+        "Key: F7",
+        "Key: F8",
+        "Key: F9",
+        "Key: F10",
+        "Key: F11",
+        "Key: F12",
+        "Key: Print Screen",
+        "Key: Scroll Lock",
+        "Key: Pause",
         "Key: Q",              // 16
         "Key: W",              // 17
         "Key: E",              // 18
