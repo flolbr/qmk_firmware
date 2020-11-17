@@ -17,10 +17,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#ifdef ORGB_ENABLE
-#define ORGB_ZONES_COUNT 1
-#define ORGB_MATRIX_COLUMNS 7
-#define ORGB_MATRIX_ROWS 17
+#ifdef OPENRGB_ENABLE
+#define OPENRGB_ZONES_COUNT 1
+#define OPENRGB_MATRIX_COLUMNS 7
+#define OPENRGB_MATRIX_ROWS 17
 #endif
 
 //Define number of ISSI3733 drivers being used (1...16)

@@ -48,14 +48,14 @@ led_config_t g_led_config = { {
     2, 2, 2, 2, 2, 2, 2, 2
 } };
 
-#ifdef ORGB_ENABLE
-orgb_config_t g_orgb_config =
+#ifdef OPENRGB_ENABLE
+openrgb_config_t g_openrgb_config =
 {
     // Zones names
     {"Keyboard"},
 
     // Zones types
-    {ZONE_TYPE_MATRIX},
+    {OPENRGB_ZONE_TYPE_MATRIX},
 
     // Zones sizes
     {105},

@@ -385,10 +385,10 @@ ifeq ($(strip $(VIA_ENABLE)), yes)
     OPT_DEFS += -DVIA_ENABLE
 endif
 
-ifeq ($(strip $(ORGB_ENABLE)), yes)
+ifeq ($(strip $(OPENRGB_ENABLE)), yes)
     RAW_ENABLE := yes
-    SRC += $(QUANTUM_DIR)/orgb.c
-    OPT_DEFS += -DORGB_ENABLE
+    SRC += $(QUANTUM_DIR)/openrgb.c
+    OPT_DEFS += -DOPENRGB_ENABLE
 endif
 
 ifeq ($(strip $(DYNAMIC_KEYMAP_ENABLE)), yes)
