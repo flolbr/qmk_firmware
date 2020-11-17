@@ -317,7 +317,7 @@ void openrgb_get_led_value_in_matrix(uint8_t *data) {
         return;
     }
 
-    raw_hid_buffer[1] = g_openrgb_config.led_matrix_map[column][row];
+    raw_hid_buffer[1] = g_openrgb_config.led_matrix_map[row][column];
     raw_hid_buffer[2] = OPENRGB_EOM;
 }
 void openrgb_get_led_color(uint8_t *data) {
