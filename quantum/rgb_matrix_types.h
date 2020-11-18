@@ -78,7 +78,7 @@ typedef struct PACKED {
     char    zone_names[ZONES_COUNT][64];
     uint8_t zone_types[ZONES_COUNT];
     uint8_t zone_sizes[ZONES_COUNT];
-    uint8_t led_matrix_map[LED_MATRIX_COLUMNS][LED_MATRIX_ROWS];
+    uint8_t led_matrix_map[LED_MATRIX_ROWS][LED_MATRIX_COLUMNS];
     char    led_names[DRIVER_LED_TOTAL][64];
 } led_matrix_config_t;
 

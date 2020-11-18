@@ -341,7 +341,7 @@ void orgb_get_led_value_in_matrix(uint8_t *data)
         return;
     }
 
-    raw_hid_buffer[1] = g_led_matrix_config.led_matrix_map[column][row];
+    raw_hid_buffer[1] = g_led_matrix_config.led_matrix_map[row][column];
     raw_hid_buffer[2] = ORGB_EOM;
 }
 void orgb_get_led_color(uint8_t *data)

@@ -33,7 +33,7 @@ Ported to QMK by Stephen Peery <https://github.com/smp4488/>
 
 static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
-static const pin_t led_row_pins[LED_MATRIX_ROWS] = LED_MATRIX_ROW_PINS;
+static const pin_t led_row_pins[LED_MATRIX_ROWS_HW] = LED_MATRIX_ROW_PINS;
 
 matrix_row_t raw_matrix[MATRIX_ROWS]; //raw values
 matrix_row_t last_matrix[MATRIX_ROWS] = {0};  // raw values
@@ -70,7 +70,7 @@ static void init_pins(void) {
         writePinHigh(col_pins[x]);
     }
 
-   for (uint8_t x = 0; x < LED_MATRIX_ROWS; x++) {
+   for (uint8_t x = 0; x < LED_MATRIX_ROWS_HW; x++) {
         setPinOutput(led_row_pins[x]);
         writePinHigh(led_row_pins[x]);
    }
@@ -269,7 +269,7 @@ OSAL_IRQ_HANDLER(Vector80) {
                             |mskCT16_PWM21EN_EN);
 
     // Turn the next row on
-    current_row = (current_row + 1) % LED_MATRIX_ROWS;
+    current_row = (current_row + 1) % LED_MATRIX_ROWS_HW;
     writePinHigh(led_row_pins[current_row]);
 
     uint8_t row_idx = current_row / 3;
