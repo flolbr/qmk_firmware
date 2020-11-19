@@ -48,7 +48,7 @@ enum orgb_eeprom_commands
     RAW_HID_EEPROM_DONT_SAVE
 };
 
-#define RAW_EPSIZE 32
+#define RAW_EPSIZE 64
 extern uint8_t raw_hid_buffer[RAW_EPSIZE];
 
 // Controls RGB
