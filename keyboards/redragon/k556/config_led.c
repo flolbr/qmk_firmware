@@ -26,4 +26,165 @@ led_config_t g_led_config = { {
    4, 4, 4, 4, 4, 4, 4, 0, 4, 0, 0, 0, 0, 0, 4, 4, 4, 0, 4, 4, 0
 } };
 
+#ifdef OPENRGB_ENABLE
+const openrgb_config_t g_openrgb_config =
+{
+    // Zones names
+    {"Keyboard"},
+
+    // Zones types
+    {OPENRGB_ZONE_TYPE_MATRIX},
+
+    // Zones sizes
+    {125},
+
+    // LED matrix map
+    {
+        {   0,      1,   2,      3,      4,      5,   6,      7,   8,          9,     10,     11,     12,     13,     14,     15,     16,  NO_LED, NO_LED, NO_LED, NO_LED },
+        {  21,     22,  23,     24,     25,     26,  27,     28,  29,         30,     31,     32,     33,     34,     35,     36,     37,      38,     39,     40,     41 },
+        {  42,     43,  44,     45,     46,     47,  48,     49,  50,         51,     52,     53,     54,     55,     56,     57,     58,      59,     60,     61,     62 },
+        {  63,     64,  65,     66,     67,     68,  69,     70,  71,         72,     73,     74, NO_LED,     76, NO_LED, NO_LED, NO_LED,      80,     81,     82, NO_LED },
+        {  84, NO_LED,  86,     87,     88,     89,  90,     91,  92,         93,     94,     95, NO_LED,     97, NO_LED,     99, NO_LED,     101,    102,    103,    104 },
+        { 105,    106, 107, NO_LED, NO_LED, NO_LED, 108, NO_LED,  NO_LED, NO_LED,    109,    110,    111,    113,    119,    120,    121,  NO_LED,    123,    124, NO_LED }
+    },
+
+    // Key names
+    {
+        "Key: Escape",
+        "Key: F1",
+        "Key: F2",
+        "Key: F3",
+        "Key: F4",
+        "Key: F5",
+        "Key: F6",
+        "Key: F7",
+        "Key: F8",
+        "Key: F9",
+        "Key: F10",
+        "Key: F11",
+        "Key: F12",
+        "Key: Print Screen",
+        "Key: Scroll Lock",
+        "Key: Pause/Break",
+
+        "",
+        "",
+        "",
+        "",
+
+        "Key: `",
+        "Key: 1",
+        "Key: 2",
+        "Key: 3",
+        "Key: 4",
+        "Key: 5",
+        "Key: 6",
+        "Key: 7",
+        "Key: 8",
+        "Key: 9",
+        "Key: 0",
+        "Key: -",
+        "Key: =",
+        "Key: Backspace",
+        "Key: Insert",
+        "Key: Home",
+        "Key: Page Up",
+        "Key: Num Lock",
+        "Key: Number Pad /",
+        "Key: Number Pad *",
+        "Key: Number Pad -",
+
+        "Key: Tab",
+        "Key: Q",
+        "Key: W",
+        "Key: E",
+        "Key: R",
+        "Key: T",
+        "Key: Y",
+        "Key: U",
+        "Key: I",
+        "Key: O",
+        "Key: P",
+        "Key: [",
+        "Key: ]",
+        "Key: \\ (ANSI)",
+        "Key: Delete",
+        "Key: End",
+        "Key: Page Down",
+        "Key: Number Pad 7",
+        "Key: Number Pad 8",
+        "Key: Number Pad 9",
+        "Key: Number Pad +",
+
+        "Key: Caps Lock",
+        "Key: A",
+        "Key: S",
+        "Key: D",
+        "Key: F",
+        "Key: G",
+        "Key: H",
+        "Key: J",
+        "Key: K",
+        "Key: L",
+        "Key: ;",
+        "Key: '",
+        "",
+        "Key: Enter",
+        "",
+        "",
+        "",
+        "Key: Number Pad 4",
+        "Key: Number Pad 5",
+        "Key: Number Pad 6",
+        "",
+
+        "Key: Left Shift",
+        "",
+        "Key: Z",
+        "Key: X",
+        "Key: C",
+        "Key: V",
+        "Key: B",
+        "Key: N",
+        "Key: M",
+        "Key: ,",
+        "Key: .",
+        "Key: /",
+        "Key: Right Shift",
+        "",
+        "Key: Up Arrow",
+        "",
+        "Key: Number Pad 1",
+        "Key: Number Pad 2",
+        "Key: Number Pad 3",
+        "Key: Number Pad Enter",
+
+        "Key: Left Control",
+        "Key: Left Windows",
+        "Key: Left Alt",
+        "Key: Space",
+        "Key: Right Alt",
+        "Key: Right Fn",
+        "Key: Menu",
+        "",
+        "Key: Right Control",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "Key: Left Arrow",
+        "Key: Down Arrow",
+        "Key: Right Arrow",
+        "",
+        "Key: Number Pad 0",
+        "Key: Number Pad .",
+        ""
+    },
+
+    // Should set to eeprom?
+    false
+};
+#endif
+
 #endif

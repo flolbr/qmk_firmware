@@ -53,7 +53,7 @@ typedef struct PACKED {
     bool should_save_to_eeprom;
 } openrgb_config_t;
 
-extern openrgb_config_t g_openrgb_config;
+extern const openrgb_config_t g_openrgb_config;
 extern RGB              g_openrgb_direct_mode_colors[DRIVER_LED_TOTAL];
 
 // Controls RGB

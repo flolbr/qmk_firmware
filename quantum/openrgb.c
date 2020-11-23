@@ -27,6 +27,8 @@
 #include "string.h"
 #include <color.h>
 
+#define RAW_EPSIZE 64
+
 static uint8_t raw_hid_buffer[RAW_EPSIZE];
 
 #if !defined(OPENRGB_DIRECT_MODE_STARTUP_RED)

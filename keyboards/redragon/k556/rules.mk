@@ -57,5 +57,8 @@ SERIAL_LINK_ENABLE = no
 WAIT_FOR_USB = no
 CUSTOM_MATRIX = yes
 
+RAW_ENABLE = yes
+OPENRGB_ENABLE=yes
+
 # Custom RGB matrix handling
 RGB_MATRIX_ENABLE = custom
