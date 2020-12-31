@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Oui" type="com.jetbrains.cidr.embedded.openocd.conf.type" factoryName="com.jetbrains.cidr.embedded.openocd.conf.factory" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="qmk_firmware" TARGET_NAME="Custom make" CONFIG_NAME="Custom make" version="1" RUN_PATH="$PROJECT_DIR$/.build/redragon_k556_default.elf">
+    <openocd version="1" gdb-port="3333" telnet-port="4444" board-config="C:\Users\Flo\Documents\qmk_allreli\qmk_firmware\openocd.cfg" reset-type="NONE" download-type="NONE">
+      <debugger toolchainName="MinGW (GCC ARM 9.2.1)" />
+    </openocd>
+    <method v="2" />
+  </configuration>
+</component>
