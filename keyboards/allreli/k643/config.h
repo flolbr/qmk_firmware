@@ -24,17 +24,23 @@
 #define DEVICE_VER      0x0001
 
 #define MANUFACTURER    Allreli
-#define PRODUCT         K556
-#define DESCRIPTION     K556 Devarajas
+#define PRODUCT         K643
+#define DESCRIPTION     K643 RGB Keyboard
 
 /* key matrix size */
+//#define MATRIX_ROWS 1
 #define MATRIX_ROWS 6
+//#define MATRIX_COLS 1
 #define MATRIX_COLS 21
 
 #define DIODE_DIRECTION ROW2COL
 
 #define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6, A7, A14, A15, B0, B1, B2, B3, B4, B10, B11, B12, B13, B14, B15 }
-#define MATRIX_ROW_PINS { C15, C14, C13, C12, C11, C10 }
+#define MATRIX_ROW_PINS { D15, D14, D13, D12, D11, D10 }
+
+#define LED_PIN_ON_STATE 1
+#define LED_CAPS_LOCK_PIN D6
+#define LED_NUM_LOCK_PIN D5
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 0

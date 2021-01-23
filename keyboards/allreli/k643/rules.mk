@@ -12,7 +12,7 @@ MCU_SERIES = SN32F240
 # Linker script to use
 # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
 #   or <this_dir>/ld/
-MCU_LDSCRIPT = SN32F240
+MCU_LDSCRIPT = SN32F240B
 
 # Startup code to use
 #  - it should exist in <chibios>/os/common/startup/ARMCMx/compilers/GCC/mk/
@@ -59,3 +59,5 @@ WAIT_FOR_USB = no
 
 # Custom RGB matrix handling
 #RGB_MATRIX_ENABLE = custom
+
+ALLOW_WARNINGS = yes

@@ -68,23 +68,23 @@
 #define SN32_PWM_TIM1_IRQ_PRIORITY         3
 #define SN32_PWM_TIM2_IRQ_PRIORITY         3
 
-#define SYS_CLOCK_SETUP 1
-#define SYS0_CLKCFG_VAL 0
-#define AHB_PRESCALAR 0x2
-#define CLKOUT_SEL_VAL 0x0
-#define CLKOUT_PRESCALAR 0x0
+//#define SYS_CLOCK_SETUP 1
+//#define SYS0_CLKCFG_VAL 0
+//#define AHB_PRESCALAR 0x2
+//#define CLKOUT_SEL_VAL 0x0
+//#define CLKOUT_PRESCALAR 0x0
 
-/*----------------------------------------------------------------------------
-  DEFINES
- *----------------------------------------------------------------------------*/
-#define IHRC48 0
-#define ILRC 1
-
-/*----------------------------------------------------------------------------
-  Define clocks
- *----------------------------------------------------------------------------*/
-#define __IHRC48_FREQ (48000000UL)
-#define __ILRC_FREQ (32000UL)
+///*----------------------------------------------------------------------------
+//  DEFINES
+// *----------------------------------------------------------------------------*/
+//#define IHRC48 0
+//#define ILRC 1
+//
+///*----------------------------------------------------------------------------
+//  Define clocks
+// *----------------------------------------------------------------------------*/
+//#define __IHRC48_FREQ (48000000UL)
+//#define __ILRC_FREQ (32000UL)
 
 // #endif /* _MCUCONF_H_ */
 
