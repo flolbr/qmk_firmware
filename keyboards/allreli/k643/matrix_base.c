@@ -208,7 +208,7 @@ void matrix_init(void) {
                 // setPinInput(led_row_pins[y]);
                 setPinOutput(led_row_pins[y]);
                 writePinHigh(led_row_pins[y]);
-            chThdSleepMilliseconds(5);
+                chThdSleepMilliseconds(5);
 //        }
 //
 //        ;
