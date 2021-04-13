@@ -32,7 +32,8 @@ enum layer_names {
 
 enum layer_keycodes {
   BASE = SAFE_RANGE,
-  GAME
+  GAME,
+  OPENRGB
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -124,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_FL]   = LAYOUT_iso(
                 RESET,            KC_MSEL, KC_VOLD, KC_VOLU, KC_MUTE, KC_MSTP, KC_MPRV, KC_MPLY, KC_MNXT, KC_MAIL, KC_WHOM, KC_CALC, KC_MYCM, _______, _______,  _______,
                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_SPD, RGB_SPI, _______, RGB_MOD, RGB_RMOD, RGB_TOG,
-                _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______,  _______,
+                _______, _______, _______, _______, _______, _______, _______, _______, _______, OPENRGB, _______, _______, _______,          _______, _______,  _______,
                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,          RGB_VAI,
                 _______, GAME,    _______,                            _______,                            _______, MO(_FL), _______, _______, RGB_HUI, RGB_VAD,  RGB_HUD
@@ -150,7 +151,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_CL]   = LAYOUT_iso(
                 RESET,            KC_MSEL, KC_VOLD, KC_VOLU, KC_MUTE, KC_MSTP, KC_MPRV, KC_MPLY, KC_MNXT, KC_MAIL, KC_WHOM, KC_CALC, KC_MYCM, _______, _______,  _______,
                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_SPD, RGB_SPI, _______, RGB_MOD, RGB_RMOD, RGB_TOG,
-                _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______,  _______,
+                _______, _______, _______, _______, _______, _______, _______, _______, _______, OPENRGB, _______, _______, _______,          _______, _______,  _______,
                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,          RGB_VAI,
                 _______, BASE,    _______,                            _______,                            _______, MO(_CL), _______, _______, RGB_HUI, RGB_VAD,  RGB_HUD
@@ -171,6 +172,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		writePinLow(D6);
 		writePinLow(D7);
       }
+      return false;
+      break;
+    case OPENRGB:
+      rgb_matrix_mode_noeeprom(RGB_MATRIX_OPENRGB_DIRECT);
       return false;
       break;
   }
