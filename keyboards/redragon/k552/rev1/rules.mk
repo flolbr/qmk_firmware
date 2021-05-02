@@ -32,6 +32,7 @@ ARMV = 6
 SN32_BOOTLOADER_ADDRESS = 0x1FFF0301
 
 OPT_DEFS = -O2
+OPT_DEFS += -DSN32_USB_ORIGINAL_NAK_HANDLING
 
 # Options to pass to dfu-util when flashing
 # DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000:leave
