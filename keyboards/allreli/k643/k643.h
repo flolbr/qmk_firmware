@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 
 #define ______ KC_TRNS
+#define XXXX   KC_NO
 
 /* ,---.   ,---------------. ,---------------. ,---------------. ,-----------.
  * |Esc|   |F1 |F2 |F3 |F4 | |F5 |F6 |F7 |F8 | |F9 |F10|F11|F12| |PrS|ScL|Pau|
@@ -53,7 +54,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     KE0,   KE3,   KE2,   KC_NO, KC_NO,        K2C,          KC_NO, KC_NO, KC_NO, KE6,   KE7,   K65,   KE4,      K50,   K51,   K4F,      K62,          K63,   K58,      KC_NO, KC_NO  \
 )
 
-#define XXXX KC_NO
 
 /* ,---.   ,---------------. ,---------------. ,---------------. ,-----------.
  * |Esc|   |F1 |F2 |F3 |F4 | |F5 |F6 |F7 |F8 | |F9 |F10|F11|F12| |PrS|ScL|Pau|
